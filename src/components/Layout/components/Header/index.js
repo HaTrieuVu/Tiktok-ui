@@ -5,13 +5,7 @@ import {
     faMagnifyingGlass,
     faSignIn,
     faEllipsisVertical,
-    faEarthAsia,
-    faCircleQuestion,
-    faKeyboard,
-    faCloudUpload,
-    faMessage,
 } from '@fortawesome/free-solid-svg-icons';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { useEffect, useState } from 'react';
 import Tippy from '@tippyjs/react';
 import HeadlessTippy from '@tippyjs/react/headless';
@@ -24,12 +18,25 @@ import images from '~/assets/images';
 import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
+import {
+    CoinIcon,
+    FeedbackIcon,
+    InboxIcon,
+    KeybroadIcon,
+    LanguageIcon,
+    LogoutIcon,
+    MessageIcon,
+    ProfileIcon,
+    SettingIcon,
+    UploadIcon,
+} from '~/components/Icons';
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 
 const MENU_ITEMS = [
     {
-        icon: <img src={images.languageIcon} alt="logo"></img>,
+        icon: <LanguageIcon />,
         title: 'Language',
         children: {
             title: 'Language',
@@ -46,12 +53,12 @@ const MENU_ITEMS = [
         },
     },
     {
-        icon: <img src={images.feedbackIcon} alt="logo"></img>,
+        icon: <FeedbackIcon />,
         title: 'Feedback and help',
         to: '/feedback',
     },
     {
-        icon: <img src={images.keyboardIcon} alt="logo"></img>,
+        icon: <KeybroadIcon />,
         title: 'Keybroad shortcuts',
     },
 ];
@@ -67,23 +74,23 @@ function Header() {
 
     const useMenu = [
         {
-            icon: <img src={images.userIcon} alt="logo"></img>,
+            icon: <ProfileIcon />,
             title: 'View profile',
             to: '/@rosé',
         },
         {
-            icon: <img src={images.coin} alt="logo"></img>,
+            icon: <CoinIcon />,
             title: 'Get coins',
             to: '/coin',
         },
         {
-            icon: <img src={images.settingIcon} alt="logo"></img>,
+            icon: <SettingIcon />,
             title: 'Settings',
             to: '/setting',
         },
         ...MENU_ITEMS,
         {
-            icon: <img src={images.logoutIcon} alt="logo"></img>,
+            icon: <LogoutIcon />,
             title: 'Log out',
             to: '/',
             separate: true,
@@ -133,14 +140,19 @@ function Header() {
                 <div className={cx('actions')}>
                     {currentUser ? (
                         <>
-                            <Tippy trigger="click" content="Upload video" placement="bottom">
+                            <Tippy content="Upload video" placement="bottom">
                                 <button className={cx('action-btn')}>
-                                    <FontAwesomeIcon icon={faCloudUpload} />
+                                    <UploadIcon />
                                 </button>
                             </Tippy>
                             <Tippy content="Messages" placement="bottom">
                                 <button className={cx('action-btn')}>
-                                    <FontAwesomeIcon icon={faMessage} />
+                                    <MessageIcon />
+                                </button>
+                            </Tippy>
+                            <Tippy content="Inbox" placement="bottom">
+                                <button className={cx('action-btn', 'inbox')}>
+                                    <InboxIcon />
                                 </button>
                             </Tippy>
                         </>
@@ -154,7 +166,7 @@ function Header() {
                     )}
                     <Menu items={currentUser ? useMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <img
+                            <Image
                                 className={cx('user-avatar')}
                                 src="https://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/856d6e040a2b3181553f302cdef7f5f5.jpeg?lk3s=a5d48078&x-expires=1715410800&x-signature=YL3qGHgMQ2hD%2Fnh1DLmXEGjQyI0%3D"
                                 alt="rose"

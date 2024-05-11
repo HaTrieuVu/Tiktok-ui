@@ -120,6 +120,14 @@
     cursor: pointer;
 }
 
+// .inbox {
+//     position: relative;
+//     &::after {
+//         position: absolute;
+//         content: '';
+//     }
+// }
+
 .more-btn {
     margin-left: 24px;
     font-size: 2rem;
