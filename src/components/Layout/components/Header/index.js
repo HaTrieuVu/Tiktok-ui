@@ -8,9 +8,14 @@ import {
     faEarthAsia,
     faCircleQuestion,
     faKeyboard,
+    faCloudUpload,
+    faMessage,
 } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { useEffect, useState } from 'react';
-import Tippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react';
+import HeadlessTippy from '@tippyjs/react/headless';
+import 'tippy.js/dist/tippy.css';
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import styles from './Header.module.scss';
@@ -24,7 +29,7 @@ const cx = classNames.bind(styles);
 
 const MENU_ITEMS = [
     {
-        icon: <FontAwesomeIcon icon={faEarthAsia} />,
+        icon: <img src={images.languageIcon} alt="logo"></img>,
         title: 'Language',
         children: {
             title: 'Language',
@@ -41,12 +46,12 @@ const MENU_ITEMS = [
         },
     },
     {
-        icon: <FontAwesomeIcon icon={faCircleQuestion} />,
+        icon: <img src={images.feedbackIcon} alt="logo"></img>,
         title: 'Feedback and help',
         to: '/feedback',
     },
     {
-        icon: <FontAwesomeIcon icon={faKeyboard} />,
+        icon: <img src={images.keyboardIcon} alt="logo"></img>,
         title: 'Keybroad shortcuts',
     },
 ];
@@ -56,7 +61,34 @@ const handleMenuChange = (item) => {
 };
 
 function Header() {
+    const currentUser = true;
+
     const [searchResult, setSearchResult] = useState([]);
+
+    const useMenu = [
+        {
+            icon: <img src={images.userIcon} alt="logo"></img>,
+            title: 'View profile',
+            to: '/@rosé',
+        },
+        {
+            icon: <img src={images.coin} alt="logo"></img>,
+            title: 'Get coins',
+            to: '/coin',
+        },
+        {
+            icon: <img src={images.settingIcon} alt="logo"></img>,
+            title: 'Settings',
+            to: '/setting',
+        },
+        ...MENU_ITEMS,
+        {
+            icon: <img src={images.logoutIcon} alt="logo"></img>,
+            title: 'Log out',
+            to: '/',
+            separate: true,
+        },
+    ];
 
     useEffect(() => {
         setTimeout(() => {
@@ -70,7 +102,7 @@ function Header() {
                 <div className={cx('logo')}>
                     <img src={images.logo} alt="logo"></img>
                 </div>
-                <Tippy
+                <HeadlessTippy
                     interactive
                     visible={searchResult.length > 0}
                     render={(attrs) => (
@@ -95,17 +127,43 @@ function Header() {
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </button>
                     </div>
-                </Tippy>
-                <div className={cx('actions')}>
-                    <Button text>Upload</Button>
-                    <Button primary leftIcon={<FontAwesomeIcon icon={faSignIn} />}>
-                        Log in
-                    </Button>
+                </HeadlessTippy>
 
-                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
-                        <button className={cx('more-btn')}>
-                            <FontAwesomeIcon icon={faEllipsisVertical} />
-                        </button>
+                {/* action */}
+                <div className={cx('actions')}>
+                    {currentUser ? (
+                        <>
+                            <Tippy trigger="click" content="Upload video" placement="bottom">
+                                <button className={cx('action-btn')}>
+                                    <FontAwesomeIcon icon={faCloudUpload} />
+                                </button>
+                            </Tippy>
+                            <Tippy content="Messages" placement="bottom">
+                                <button className={cx('action-btn')}>
+                                    <FontAwesomeIcon icon={faMessage} />
+                                </button>
+                            </Tippy>
+                        </>
+                    ) : (
+                        <>
+                            <Button text>Upload</Button>
+                            <Button primary leftIcon={<FontAwesomeIcon icon={faSignIn} />}>
+                                Log in
+                            </Button>
+                        </>
+                    )}
+                    <Menu items={currentUser ? useMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                        {currentUser ? (
+                            <img
+                                className={cx('user-avatar')}
+                                src="https://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/856d6e040a2b3181553f302cdef7f5f5.jpeg?lk3s=a5d48078&x-expires=1715410800&x-signature=YL3qGHgMQ2hD%2Fnh1DLmXEGjQyI0%3D"
+                                alt="rose"
+                            />
+                        ) : (
+                            <button className={cx('more-btn')}>
+                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                            </button>
+                        )}
                     </Menu>
                 </div>
             </div>
