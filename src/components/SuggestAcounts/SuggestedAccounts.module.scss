@@ -1,0 +1,58 @@
+// Suggested account
+.wrapper {
+    padding: 10px 0;
+    border-top: 1px solid #e3e3e4;
+}
+
+.label {
+    padding: 0 8px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.more-btn {
+    padding: 8px;
+    color: #fe2c55;
+    font-size: 1.4rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+// Account Item
+.account-item {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.avatar {
+    margin-right: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.item-info {
+    flex: 1;
+}
+
+.nickname {
+    color: #161823;
+    font-size: 1.6rem;
+    margin-right: 5px;
+    line-height: 1;
+}
+
+.check {
+    font-size: 1.4rem;
+    color: #20d5ec;
+    margin-left: 5px;
+}
+
+.name {
+    color: #161823bf;
+    font-size: 1.2rem;
+}
